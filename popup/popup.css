@@ -307,3 +307,119 @@ body.disabled .divider {
 body.disabled .header .logo-text {
   opacity: 0.4;
 }
+
+/* ─── Header Controls ─────────────────────────────────────────────────────── */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gear-btn {
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s, background 0.2s;
+}
+
+.gear-btn:hover {
+  color: #f0f0f0;
+  background: #1e1e1e;
+}
+
+.gear-btn.active {
+  color: #f0f0f0;
+}
+
+/* ─── Settings Panel ──────────────────────────────────────────────────────── */
+.settings-panel {
+  display: none;
+}
+
+.settings-panel.open {
+  display: block;
+}
+
+.domain-input-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.domain-input {
+  flex: 1;
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: 4px;
+  color: #f0f0f0;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  padding: 6px 8px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.domain-input:focus {
+  border-color: #444;
+}
+
+.domain-input::placeholder {
+  color: #444;
+}
+
+.domain-add-btn {
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  color: #888;
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  width: 30px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.domain-add-btn:hover {
+  background: #f0f0f0;
+  color: #0a0a0a;
+}
+
+/* Domain tag chips */
+.domain-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.domain-tag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #141414;
+  border: 1px solid #1e1e1e;
+  border-radius: 3px;
+  padding: 3px 6px;
+  font-size: 10px;
+  color: #aaa;
+  font-family: 'Space Mono', monospace;
+}
+
+.domain-tag .remove-tag {
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  font-size: 11px;
+  padding: 0 2px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.domain-tag .remove-tag:hover {
+  color: #ff3b30;
+}

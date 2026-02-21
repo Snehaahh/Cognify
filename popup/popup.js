@@ -95,5 +95,88 @@ function updateSignalRow(rowId, dotId, valId, isActive, value) {
     if (val) val.textContent = value;
 }
 
+// ─── Settings Panel ───────────────────────────────────────────────────────────
+const gearBtn = $('gearBtn');
+const settingsPanel = $('settingsPanel');
+
+gearBtn.addEventListener('click', () => {
+    const isOpen = settingsPanel.classList.toggle('open');
+    gearBtn.classList.toggle('active', isOpen);
+});
+
+// Domain storage keys
+let customProductive = [];
+let customDistraction = [];
+
+async function loadCustomDomains() {
+    const stored = await chrome.storage.local.get(['customProductive', 'customDistraction']);
+    customProductive = stored.customProductive || [];
+    customDistraction = stored.customDistraction || [];
+    renderTags('productiveTags', customProductive, 'customProductive');
+    renderTags('distractionTags', customDistraction, 'customDistraction');
+}
+
+function renderTags(containerId, domains, storageKey) {
+    const container = $(containerId);
+    container.innerHTML = '';
+    domains.forEach(domain => {
+        const tag = document.createElement('span');
+        tag.className = 'domain-tag';
+        tag.innerHTML = `${domain}<button class="remove-tag" data-domain="${domain}">\u00d7</button>`;
+        tag.querySelector('.remove-tag').addEventListener('click', () => {
+            removeDomain(domain, storageKey);
+        });
+        container.appendChild(tag);
+    });
+}
+
+function addDomain(inputId, storageKey) {
+    const input = $(inputId);
+    let domain = input.value.trim().toLowerCase();
+    if (!domain) return;
+
+    // Clean up: remove protocol and www
+    domain = domain.replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/.*$/, '');
+    if (!domain) return;
+
+    const list = storageKey === 'customProductive' ? customProductive : customDistraction;
+    if (list.includes(domain)) { input.value = ''; return; } // already exists
+
+    list.push(domain);
+    chrome.storage.local.set({ [storageKey]: list });
+    renderTags(
+        storageKey === 'customProductive' ? 'productiveTags' : 'distractionTags',
+        list, storageKey
+    );
+    input.value = '';
+
+    // Notify background.js to reload custom domains
+    chrome.runtime.sendMessage({ type: 'UPDATE_CUSTOM_DOMAINS' }).catch(() => { });
+}
+
+function removeDomain(domain, storageKey) {
+    const list = storageKey === 'customProductive' ? customProductive : customDistraction;
+    const idx = list.indexOf(domain);
+    if (idx > -1) list.splice(idx, 1);
+    chrome.storage.local.set({ [storageKey]: list });
+    renderTags(
+        storageKey === 'customProductive' ? 'productiveTags' : 'distractionTags',
+        list, storageKey
+    );
+    chrome.runtime.sendMessage({ type: 'UPDATE_CUSTOM_DOMAINS' }).catch(() => { });
+}
+
+// Wire up add buttons + Enter key
+$('addProductiveBtn').addEventListener('click', () => addDomain('productiveInput', 'customProductive'));
+$('addDistractionBtn').addEventListener('click', () => addDomain('distractionInput', 'customDistraction'));
+
+$('productiveInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') addDomain('productiveInput', 'customProductive');
+});
+$('distractionInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') addDomain('distractionInput', 'customDistraction');
+});
+
 // ─── Start ────────────────────────────────────────────────────────────────────
+loadCustomDomains();
 init();
