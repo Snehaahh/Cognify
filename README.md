@@ -1,8 +1,8 @@
-Cognify
+#Cognify
 
 Engineering to repair Attention Drift.
 
-Basic Details
+#Basic Details
 
 Team Name: Cipher
 
@@ -11,15 +11,15 @@ Team Members
 Member 1: Snehamol K M - Adi Shankara Institute of Engineering and Technology
 
 
-Hosted Project Link
+#Hosted Project Link
 
 https://github.com/Snehaahh/Cognify
 
-Project Description
+#Project Description
 
 Cognify is an intelligent browser extension that detects cognitive drift in real time using behavioral signals like tab switching, typing patterns, idle time, and mouse movement jitter. It calculates a dynamic distraction score and triggers adaptive interventions to restore focus.
 
-The Problem Statement
+#The Problem Statement
 
 Modern users suffer from fragmented attention due to constant tab switching, aimless scrolling, and digital distractions. Traditional website blockers are rigid and context-blind, often interrupting legitimate research or productive workflows.
 
