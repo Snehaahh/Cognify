@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cognify</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <span class="logo-text">Cognify</span>
+    <label class="toggle-switch" title="Enable / Disable Cognify">
+      <input type="checkbox" id="enableToggle" checked />
+      <span class="toggle-track">
+        <span class="toggle-thumb"></span>
+      </span>
+    </label>
+  </header>
+
+  <!-- Status Bar -->
+  <div class="status-bar" id="statusCard">
+    <div class="status-dot" id="statusIndicator"></div>
+    <span class="status-label" id="statusLabel">FOCUSED</span>
+    <span class="status-signals" id="signalCount"><span id="signalNum">0</span>/4</span>
+  </div>
+
+  <!-- Focus Mode -->
+  <section class="section">
+    <div class="section-label">MODE</div>
+    <div class="mode-switcher" id="modeSwitcher">
+      <button class="mode-btn active" data-mode="deep-work">Deep Work</button>
+      <button class="mode-btn" data-mode="research">Research</button>
+      <button class="mode-btn" data-mode="casual">Casual</button>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="divider"></div>
+
+  <!-- Signals -->
+  <section class="section">
+    <div class="section-label">SIGNALS</div>
+    <div class="signals-list">
+
+      <div class="signal-row" id="sig-idle">
+        <div class="signal-left">
+          <div class="signal-dot-sm" id="dot-idle"></div>
+          <span class="signal-name">Idle Time</span>
+        </div>
+        <span class="signal-value" id="val-idle">0s</span>
+      </div>
+
+      <div class="signal-row" id="sig-tab">
+        <div class="signal-left">
+          <div class="signal-dot-sm" id="dot-tab"></div>
+          <span class="signal-name">Tab Switches</span>
+        </div>
+        <span class="signal-value" id="val-tab">0/min</span>
+      </div>
+
+      <div class="signal-row" id="sig-backspace">
+        <div class="signal-left">
+          <div class="signal-dot-sm" id="dot-backspace"></div>
+          <span class="signal-name">Backspace Ratio</span>
+        </div>
+        <span class="signal-value" id="val-backspace">0%</span>
+      </div>
+
+      <div class="signal-row" id="sig-jitter">
+        <div class="signal-left">
+          <div class="signal-dot-sm" id="dot-jitter"></div>
+          <span class="signal-name">Mouse Jitter</span>
+        </div>
+        <span class="signal-value" id="val-jitter">0.0</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="divider"></div>
+
+  <!-- Stats -->
+  <section class="section stats-section">
+    <div class="section-label">TODAY</div>
+    <div class="stats-row">
+      <div class="stat-cell">
+        <span class="stat-num" id="stat-distractions">0</span>
+        <span class="stat-label">Drifts</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num" id="stat-resets">0</span>
+        <span class="stat-label">Resets</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num" id="stat-idle">0m</span>
+        <span class="stat-label">Idle</span>
+      </div>
+    </div>
+  </section>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>
